@@ -29,12 +29,11 @@ public class Jogo {
     @Column(name = "sinopse_descricao")
     private String descricao;
 
-    @Column(name = "engine_id")
-    private Long engineId;
+    @OneToOne //preciso de mais detalhes sobre isso
+    @JoinColumn(name = "engine_id")
+    private MotorGrafico motorGrafico;
 
-    @Column(name = "estudio_id")
-    private Long estudioId;
-
-    private Engine engine;
+    @OneToOne
+    @JoinColumn(name = "estudio_id")
     private Estudio estudio;
 }
