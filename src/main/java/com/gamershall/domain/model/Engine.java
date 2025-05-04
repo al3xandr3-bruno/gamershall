@@ -10,7 +10,7 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "engine")
-public class MotorGrafico {
+public class Engine {
 
     @Id
     @EqualsAndHashCode.Include

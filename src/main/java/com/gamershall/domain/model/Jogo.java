@@ -31,7 +31,7 @@ public class Jogo {
 
     @OneToOne //preciso de mais detalhes sobre isso
     @JoinColumn(name = "engine_id")
-    private MotorGrafico motorGrafico;
+    private Engine engine;
 
     @OneToOne
     @JoinColumn(name = "estudio_id")
