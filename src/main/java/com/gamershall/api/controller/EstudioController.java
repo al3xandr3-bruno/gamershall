@@ -2,6 +2,7 @@ package com.gamershall.api.controller;
 
 import com.gamershall.domain.model.Estudio;
 import com.gamershall.domain.repository.EstudioRepository;
+import com.gamershall.domain.services.RegistroEstudioService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/estudios")
 public class EstudioController {
     private final EstudioRepository estudioRepository;
+    private final RegistroEstudioService registroEstudioService;
 
     @GetMapping
     public List<Estudio> listar(){
@@ -30,13 +32,13 @@ public class EstudioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Estudio adicionar(@RequestBody Estudio estudio){
-        return estudioRepository.save(estudio);
+        return registroEstudioService.salvar(estudio);
     }
 
     @DeleteMapping("/{estudioId}")
     public ResponseEntity<Void> deletar(@PathVariable Long estudioId){
         if(estudioRepository.existsById(estudioId)){
-            estudioRepository.deleteById(estudioId);
+            registroEstudioService.excluir(estudioId);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

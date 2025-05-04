@@ -2,6 +2,7 @@ package com.gamershall.api.controller;
 
 import com.gamershall.domain.model.Jogo;
 import com.gamershall.domain.repository.JogoRepository;
+import com.gamershall.domain.services.RegistroJogoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 public class JogoController {
 
     private final JogoRepository jogoRepository;
+    private final RegistroJogoService registroJogoService;
 
     @GetMapping
     public List<Jogo> listar(){
@@ -31,16 +33,16 @@ public class JogoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Jogo adicionar(@RequestBody Jogo jogo){
-        return jogoRepository.save(jogo);
+        return registroJogoService.salvar(jogo);
     }
 
     @DeleteMapping("/{jogoId}")
     public ResponseEntity<Void> deletar(@PathVariable Long jogoId){
-        if(jogoRepository.existsById(jogoId)){
-            jogoRepository.deleteById(jogoId);
-            return ResponseEntity.noContent().build();
+        if (!jogoRepository.existsById(jogoId)){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        registroJogoService.excluir(jogoId);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{jogoId}")

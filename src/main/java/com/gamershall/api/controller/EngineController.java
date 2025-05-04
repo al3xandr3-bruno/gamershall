@@ -2,6 +2,7 @@ package com.gamershall.api.controller;
 
 import com.gamershall.domain.model.Engine;
 import com.gamershall.domain.repository.EngineRepository;
+import com.gamershall.domain.services.RegistroEngineService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 public class EngineController {
 
     private final EngineRepository engineRepository;
+    private final RegistroEngineService registroEngineService;
 
     @GetMapping
     public List<Engine> listar(){
@@ -31,13 +33,13 @@ public class EngineController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Engine adicionar(@RequestBody Engine engine){
-        return engineRepository.save(engine);
+        return registroEngineService.salvar(engine);
     }
 
     @DeleteMapping("/{engineId}")
     public ResponseEntity<Void> deletar(@PathVariable Long engineId){
         if(engineRepository.existsById(engineId)){
-            engineRepository.deleteById(engineId);
+            registroEngineService.apagar(engineId);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
