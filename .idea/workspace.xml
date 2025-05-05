@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bbb6e8fe-989c-4057-b109-0779289a8e3a" name="Changes" comment="Segundo Commit?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gamershall/api/controller/EngineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gamershall/api/controller/EngineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gamershall/api/controller/EstudioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gamershall/api/controller/EstudioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gamershall/api/controller/JogoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gamershall/api/controller/JogoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
