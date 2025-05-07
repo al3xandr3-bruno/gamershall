@@ -16,9 +16,8 @@ public class Engine {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String versao;
-
-    @Column(name = "empresa_desenvolvedora")
     private String empresaDesenvolvedora;
 }

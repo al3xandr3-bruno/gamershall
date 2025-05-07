@@ -15,8 +15,7 @@ public class Estudio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
 
-    @Column(name = "empresa_dona")
+    private String nome;
     private String empresaDona;
 }

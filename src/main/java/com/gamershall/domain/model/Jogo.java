@@ -19,21 +19,13 @@ public class Jogo {
     @Column(name = "titulo")
     private String nome;
     private String genero;
-
-    @Column(name = "n_jogadores")
     private Long nJogadores;
-
-    @Column(name = "data_de_lancamento")
     private String dataLancamento;
+    private String sinopseDescricao;
 
-    @Column(name = "sinopse_descricao")
-    private String descricao;
-
-    @OneToOne //preciso de mais detalhes sobre isso
-    @JoinColumn(name = "engine_id")
+    @OneToOne
     private Engine engine;
 
     @OneToOne
-    @JoinColumn(name = "estudio_id")
     private Estudio estudio;
 }

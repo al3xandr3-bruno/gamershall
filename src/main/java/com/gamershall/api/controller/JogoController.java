@@ -1,5 +1,6 @@
 package com.gamershall.api.controller;
 
+import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Jogo;
 import com.gamershall.domain.repository.JogoRepository;
 import com.gamershall.domain.services.RegistroJogoService;
@@ -52,6 +53,11 @@ public class JogoController {
         }
         jogo.setId(jogoId);
         return ResponseEntity.ok(jogoRepository.save(jogo));
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> captura(NegocioException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
 }
