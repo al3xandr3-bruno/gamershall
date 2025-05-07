@@ -1,0 +1,1 @@
+alter table jogo modify column data_lancamento date;
