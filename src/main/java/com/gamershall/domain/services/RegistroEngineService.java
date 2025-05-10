@@ -25,6 +25,12 @@ public class RegistroEngineService {
 
     @Transactional
     public Engine salvar(Engine engine){
+        boolean nomeEmUso = engineRepository.findByNome(engine.getNome())
+                .filter(e -> !e.equals(engine))
+                .isPresent();
+
+        if(nomeEmUso) throw new NegocioException("Já existe uma Engine registrada com esse nome!");
+
         return engineRepository.save(engine);
     }
 }
