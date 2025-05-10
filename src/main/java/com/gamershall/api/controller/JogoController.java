@@ -4,6 +4,7 @@ import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Jogo;
 import com.gamershall.domain.repository.JogoRepository;
 import com.gamershall.domain.services.RegistroJogoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class JogoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Jogo adicionar(@RequestBody Jogo jogo){
+    public Jogo adicionar(@Valid @RequestBody Jogo jogo){
         return registroJogoService.salvar(jogo);
     }
 
@@ -47,7 +48,7 @@ public class JogoController {
     }
 
     @PutMapping("/{jogoId}")
-    public ResponseEntity atualizar(@PathVariable Long jogoId, @RequestBody Jogo jogo){
+    public ResponseEntity atualizar(@Valid @PathVariable Long jogoId, @RequestBody Jogo jogo){
         if(!jogoRepository.existsById(jogoId)){
             return ResponseEntity.notFound().build();
         }

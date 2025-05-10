@@ -3,6 +3,7 @@ package com.gamershall.api.controller;
 import com.gamershall.domain.model.Estudio;
 import com.gamershall.domain.repository.EstudioRepository;
 import com.gamershall.domain.services.RegistroEstudioService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class EstudioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estudio adicionar(@RequestBody Estudio estudio){
+    public Estudio adicionar(@Valid @RequestBody Estudio estudio){
         return registroEstudioService.salvar(estudio);
     }
 
@@ -45,7 +46,7 @@ public class EstudioController {
     }
 
     @PutMapping("/{estudioId}")
-    public ResponseEntity atualizar(@PathVariable Long estudioId, @RequestBody Estudio estudio){
+    public ResponseEntity atualizar(@Valid @PathVariable Long estudioId, @RequestBody Estudio estudio){
         if(!estudioRepository.existsById(estudioId)){
             return ResponseEntity.notFound().build();
         }

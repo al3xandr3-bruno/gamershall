@@ -1,8 +1,10 @@
 package com.gamershall.api.controller;
 
+import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Engine;
 import com.gamershall.domain.repository.EngineRepository;
 import com.gamershall.domain.services.RegistroEngineService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class EngineController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Engine adicionar(@RequestBody Engine engine){
+    public Engine adicionar(@Valid @RequestBody Engine engine){
         return registroEngineService.salvar(engine);
     }
 
@@ -46,11 +48,16 @@ public class EngineController {
     }
 
     @PutMapping("/{engineId}")
-    public ResponseEntity atualizar(@PathVariable Long engineId, @RequestBody Engine engine){
+    public ResponseEntity atualizar(@Valid @PathVariable Long engineId, @RequestBody Engine engine){
         if(!engineRepository.existsById(engineId)){
             return ResponseEntity.notFound().build();
         }
         engine.setId(engineId);
-        return ResponseEntity.ok(engineRepository.save(engine));
+        return ResponseEntity.ok(registroEngineService.salvar(engine));
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> captura(NegocioException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
