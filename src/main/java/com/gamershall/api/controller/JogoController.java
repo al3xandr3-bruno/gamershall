@@ -1,11 +1,13 @@
 package com.gamershall.api.controller;
 
+import com.gamershall.api.model.JogoModel;
 import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Jogo;
 import com.gamershall.domain.repository.JogoRepository;
 import com.gamershall.domain.services.RegistroJogoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ public class JogoController {
 
     private final JogoRepository jogoRepository;
     private final RegistroJogoService registroJogoService;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     public List<Jogo> listar(){
@@ -26,8 +29,9 @@ public class JogoController {
     }
 
     @GetMapping("/{jogoId}")
-    public ResponseEntity<Jogo> buscar(@PathVariable Long jogoId) {
+    public ResponseEntity<JogoModel> buscar(@PathVariable Long jogoId) {
         return jogoRepository.findById(jogoId)
+                .map(jogo -> modelMapper.map(jogo, JogoModel.class))
                 .map(ResponseEntity::ok) //.map(jogo -> ResponseEntity.ok(jogo))
                 .orElse(ResponseEntity.notFound().build());
     }
