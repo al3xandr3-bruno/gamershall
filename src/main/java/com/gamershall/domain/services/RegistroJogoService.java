@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+
 @AllArgsConstructor
 @Service
 public class RegistroJogoService {
@@ -23,6 +26,7 @@ public class RegistroJogoService {
 
         jogo.setEngine(engine);
         jogo.setEstudio(estudio);
+        jogo.setDataLancamento(OffsetDateTime.now());
 
         return jogoRepository.save(jogo);
     }

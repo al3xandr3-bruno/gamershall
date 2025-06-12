@@ -1,6 +1,7 @@
 package com.gamershall.api.mapper;
 
 import com.gamershall.api.model.JogoModel;
+import com.gamershall.api.model.input.JogoInput;
 import com.gamershall.domain.model.Jogo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,5 +23,9 @@ public class JogoMapper {
         return jogos.stream()
                 .map(jogo -> modelMapper.map(jogo, JogoModel.class))
                 .toList();
+    }
+
+    public Jogo toEntity(JogoInput jogoInput){
+        return modelMapper.map(jogoInput, Jogo.class);
     }
 }

@@ -1,6 +1,5 @@
 package com.gamershall.api.controller;
 
-import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Engine;
 import com.gamershall.domain.repository.EngineRepository;
 import com.gamershall.domain.services.RegistroEngineService;

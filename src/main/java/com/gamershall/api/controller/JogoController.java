@@ -2,13 +2,12 @@ package com.gamershall.api.controller;
 
 import com.gamershall.api.mapper.JogoMapper;
 import com.gamershall.api.model.JogoModel;
-import com.gamershall.domain.exception.NegocioException;
+import com.gamershall.api.model.input.JogoInput;
 import com.gamershall.domain.model.Jogo;
 import com.gamershall.domain.repository.JogoRepository;
 import com.gamershall.domain.services.RegistroJogoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +38,8 @@ public class JogoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public JogoModel adicionar(@Valid @RequestBody Jogo jogo){
-        return jogoMapper.toModel(jogoRepository.save(jogo));
-
+    public JogoModel adicionar(@Valid @RequestBody JogoInput jogoInput){
+        return jogoMapper.toModel(registroJogoService.salvar(jogoMapper.toEntity(jogoInput)));
     }
 
     @DeleteMapping("/{jogoId}")
@@ -59,6 +57,6 @@ public class JogoController {
             return ResponseEntity.notFound().build();
         }
         jogo.setId(jogoId);
-        return ResponseEntity.ok(jogoMapper.toModel(jogoRepository.save(jogo)));
+        return ResponseEntity.ok(jogoMapper.toModel(registroJogoService.salvar(jogo)));
     }
 }

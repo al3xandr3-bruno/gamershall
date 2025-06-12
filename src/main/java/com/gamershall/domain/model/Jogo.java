@@ -11,6 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -32,8 +34,7 @@ public class Jogo {
     @NotNull
     private Long nJogadores;
 
-    @NotBlank
-    private String dataLancamento;
+    private OffsetDateTime dataLancamento;
 
     @NotBlank
     private String sinopseDescricao;
