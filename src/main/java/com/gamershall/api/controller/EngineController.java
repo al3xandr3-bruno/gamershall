@@ -55,9 +55,4 @@ public class EngineController {
         engine.setId(engineId);
         return ResponseEntity.ok(registroEngineService.salvar(engine));
     }
-
-    @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<String> captura(NegocioException e){
-        return ResponseEntity.badRequest().body(e.getMessage());
-    }
 }
