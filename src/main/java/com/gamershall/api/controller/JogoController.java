@@ -1,5 +1,6 @@
 package com.gamershall.api.controller;
 
+import com.gamershall.api.mapper.JogoMapper;
 import com.gamershall.api.model.JogoModel;
 import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Jogo;
@@ -21,25 +22,26 @@ public class JogoController {
 
     private final JogoRepository jogoRepository;
     private final RegistroJogoService registroJogoService;
-    private final ModelMapper modelMapper;
+    private final JogoMapper jogoMapper;
 
     @GetMapping
-    public List<Jogo> listar(){
-        return jogoRepository.findAll();
+    public List<JogoModel> listar(){
+        return jogoMapper.toModelList(jogoRepository.findAll());
     }
 
     @GetMapping("/{jogoId}")
     public ResponseEntity<JogoModel> buscar(@PathVariable Long jogoId) {
         return jogoRepository.findById(jogoId)
-                .map(jogo -> modelMapper.map(jogo, JogoModel.class))
+                .map(jogoMapper::toModel)
                 .map(ResponseEntity::ok) //.map(jogo -> ResponseEntity.ok(jogo))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Jogo adicionar(@Valid @RequestBody Jogo jogo){
-        return registroJogoService.salvar(jogo);
+    public JogoModel adicionar(@Valid @RequestBody Jogo jogo){
+        return jogoMapper.toModel(jogoRepository.save(jogo));
+
     }
 
     @DeleteMapping("/{jogoId}")
@@ -52,11 +54,11 @@ public class JogoController {
     }
 
     @PutMapping("/{jogoId}")
-    public ResponseEntity atualizar(@Valid @PathVariable Long jogoId, @RequestBody Jogo jogo){
+    public ResponseEntity<JogoModel> atualizar(@Valid @PathVariable Long jogoId, @RequestBody Jogo jogo){
         if(!jogoRepository.existsById(jogoId)){
             return ResponseEntity.notFound().build();
         }
         jogo.setId(jogoId);
-        return ResponseEntity.ok(jogoRepository.save(jogo));
+        return ResponseEntity.ok(jogoMapper.toModel(jogoRepository.save(jogo)));
     }
 }
