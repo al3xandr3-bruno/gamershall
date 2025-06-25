@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -23,4 +25,6 @@ public class Usuario{
     private String nomeUsuario;
     private String email;
     private Long pontos;
+
+    private List<>
 }
