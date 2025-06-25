@@ -4,8 +4,10 @@ import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Usuario;
 import com.gamershall.domain.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
+@Service
 public class RegistroUsuarioService {
 
     private final UsuarioRepository usuarioRepository;
