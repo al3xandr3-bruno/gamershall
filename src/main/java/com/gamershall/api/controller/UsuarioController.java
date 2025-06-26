@@ -43,6 +43,13 @@ public class UsuarioController {
                 .toList();
     }
 
+    @PostMapping("/{usuarioId}/jogos")
+    public Jogo adicionarJogo(@RequestBody Jogo jogo, @PathVariable Long usuarioId){
+        JogoJogado jogoJogado = new JogoJogado();
+        jogoJogado.setJogo(jogo);
+        return registroUsuarioService.buscar(usuarioId).adicionaJogo(jogoJogado).getJogo();
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario adicionar(@RequestBody Usuario usuario){
