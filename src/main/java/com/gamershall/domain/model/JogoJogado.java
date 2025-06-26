@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -25,7 +26,7 @@ public class JogoJogado {
     @ManyToOne
     private Jogo jogo;
 
-    private Date dataCadastro;
+    private Calendar dataCadastro = Calendar.getInstance();
 
     @Column(name = "data_ultima_jogatina")
     private OffsetDateTime ultimaVezJogado;

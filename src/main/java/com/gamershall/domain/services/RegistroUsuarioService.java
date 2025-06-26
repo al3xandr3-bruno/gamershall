@@ -12,6 +12,11 @@ public class RegistroUsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
+    public Usuario buscar(Long usuarioId){
+        return usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new NegocioException("Usuário não encontrado!"));
+    }
+
     public Usuario cadastrar(Usuario usuario){
         boolean nomeUsuarioEmUso = usuarioRepository.findByNomeUsuario(usuario.getNomeUsuario())
                 .filter(u -> !u.equals(usuario))

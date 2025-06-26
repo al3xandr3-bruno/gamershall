@@ -1,13 +1,11 @@
 package com.gamershall.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,5 +24,11 @@ public class Usuario{
     private String email;
     private Long pontos;
 
-    private List<>
+    @OneToMany(mappedBy = "usuario")
+    private List<JogoJogado> jogosJogados = new ArrayList<>();
+
+    public JogoJogado adicionaJogo(JogoJogado jogoJogado){
+        jogoJogado.setUsuario(this);
+        return jogoJogado;
+    }
 }

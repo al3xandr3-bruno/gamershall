@@ -1,6 +1,10 @@
 package com.gamershall.api.controller;
 
+import com.gamershall.domain.model.Jogo;
+import com.gamershall.domain.model.JogoJogado;
 import com.gamershall.domain.model.Usuario;
+import com.gamershall.domain.repository.JogoJogadoRepository;
+import com.gamershall.domain.repository.JogoRepository;
 import com.gamershall.domain.repository.UsuarioRepository;
 import com.gamershall.domain.services.RegistroUsuarioService;
 import lombok.AllArgsConstructor;
@@ -17,6 +21,7 @@ public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
     private final RegistroUsuarioService registroUsuarioService;
+    private final JogoJogadoRepository jogoJogadoRepository;
 
     @GetMapping
     public List<Usuario> listar(){
@@ -28,6 +33,14 @@ public class UsuarioController {
         return usuarioRepository.findById(usuarioId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{usuarioId}/jogos")
+    public List<Jogo> buscarJogos(@PathVariable Long usuarioId){
+        return jogoJogadoRepository.findByUsuario(registroUsuarioService.buscar(usuarioId))
+                .stream()
+                .map(JogoJogado::getJogo)
+                .toList();
     }
 
     @PostMapping
