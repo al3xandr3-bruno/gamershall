@@ -1,5 +1,6 @@
 package com.gamershall.domain.services;
 
+import com.gamershall.domain.exception.NegocioException;
 import com.gamershall.domain.model.Engine;
 import com.gamershall.domain.model.Estudio;
 import com.gamershall.domain.model.Jogo;
@@ -18,6 +19,11 @@ public class RegistroJogoService {
     private final JogoRepository jogoRepository;
     private final RegistroEngineService registroEngineService;
     private final RegistroEstudioService registroEstudioService;
+
+    public Jogo buscar(Long jogoId){
+        return jogoRepository.findById(jogoId)
+                .orElseThrow(() -> new NegocioException("Jogo não encontrado!"));
+    }
 
     @Transactional
     public Jogo salvar(Jogo jogo){

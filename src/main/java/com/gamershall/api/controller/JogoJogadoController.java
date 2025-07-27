@@ -2,9 +2,11 @@ package com.gamershall.api.controller;
 
 import com.gamershall.api.mapper.JogoMapper;
 import com.gamershall.api.model.JogoModel;
+import com.gamershall.api.model.input.JogoIdInput;
 import com.gamershall.api.model.input.JogoInput;
 import com.gamershall.domain.model.JogoJogado;
 import com.gamershall.domain.repository.JogoJogadoRepository;
+import com.gamershall.domain.services.RegistroJogoService;
 import com.gamershall.domain.services.RegistroUsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class JogoJogadoController {
 
     private final JogoJogadoRepository jogoJogadoRepository;
     private final RegistroUsuarioService registroUsuarioService;
+    private final RegistroJogoService registroJogoService;
     private final JogoMapper jogoMapper;
 
     @GetMapping
@@ -30,9 +33,9 @@ public class JogoJogadoController {
     }
 
     @PostMapping
-    public JogoModel adicionarJogo(@RequestBody JogoInput jogoInput, @PathVariable Long usuarioId){
+    public JogoModel adicionarJogo(@RequestBody JogoIdInput jogoIdInput, @PathVariable Long usuarioId){
         JogoJogado jogoJogado = new JogoJogado();
-        jogoJogado.setJogo(jogoMapper.toEntity(jogoInput));
+        jogoJogado.setJogo(registroJogoService.buscar(jogoIdInput.getId()));
         return jogoMapper.toModel(registroUsuarioService.buscar(usuarioId).adicionaJogo(jogoJogado).getJogo());
     }
 }

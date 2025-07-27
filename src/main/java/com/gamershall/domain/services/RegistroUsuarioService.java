@@ -29,6 +29,8 @@ public class RegistroUsuarioService {
         if(nomeUsuarioEmUso) throw new NegocioException("Esse nome de usuário está em uso!");
         if(emailEmUso) throw new NegocioException("Já existe um usuário cadastrado com esse email");
 
+        usuario.setPontos(0L);
+
         return usuarioRepository.save(usuario);
     }
 }
