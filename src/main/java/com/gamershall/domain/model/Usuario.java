@@ -29,6 +29,8 @@ public class Usuario{
 
     public JogoJogado adicionaJogo(JogoJogado jogoJogado){
         jogoJogado.setUsuario(this);
+        getJogosJogados().add(jogoJogado);
+
         return jogoJogado;
     }
 }

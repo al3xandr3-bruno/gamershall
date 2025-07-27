@@ -52,11 +52,13 @@ public class JogoController {
     }
 
     @PutMapping("/{jogoId}")
-    public ResponseEntity<JogoModel> atualizar(@Valid @PathVariable Long jogoId, @RequestBody Jogo jogo){
+    public ResponseEntity<JogoModel> atualizar(@Valid @PathVariable Long jogoId, @RequestBody JogoInput jogoInput){
         if(!jogoRepository.existsById(jogoId)){
             return ResponseEntity.notFound().build();
         }
-        jogo.setId(jogoId);
-        return ResponseEntity.ok(jogoMapper.toModel(registroJogoService.salvar(jogo)));
+        Jogo jogoAtualizado = jogoMapper.toEntity(jogoInput);
+        jogoAtualizado.setId(jogoId);
+
+        return ResponseEntity.ok(jogoMapper.toModel(registroJogoService.salvar(jogoAtualizado)));
     }
 }
