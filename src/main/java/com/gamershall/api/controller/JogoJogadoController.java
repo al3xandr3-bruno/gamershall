@@ -20,7 +20,7 @@ public class JogoJogadoController {
     private final RegistroUsuarioService registroUsuarioService;
     private final JogoMapper jogoMapper;
 
-    @GetMapping("/{usuarioId}/jogos")
+    @GetMapping
     public List<JogoModel> buscarJogos(@PathVariable Long usuarioId){
         return jogoJogadoRepository.findByUsuario(registroUsuarioService.buscar(usuarioId))
                 .stream()
@@ -29,7 +29,7 @@ public class JogoJogadoController {
                 .toList();
     }
 
-    @PostMapping("/{usuarioId}/jogos")
+    @PostMapping
     public JogoModel adicionarJogo(@RequestBody JogoInput jogoInput, @PathVariable Long usuarioId){
         JogoJogado jogoJogado = new JogoJogado();
         jogoJogado.setJogo(jogoMapper.toEntity(jogoInput));
