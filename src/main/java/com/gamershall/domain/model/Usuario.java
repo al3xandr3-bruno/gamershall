@@ -24,7 +24,7 @@ public class Usuario{
     private String email;
     private Long pontos;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<JogoJogado> jogosJogados = new ArrayList<>();
 
     public JogoJogado adicionaJogo(JogoJogado jogoJogado){

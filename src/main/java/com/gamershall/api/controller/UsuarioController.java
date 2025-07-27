@@ -6,6 +6,7 @@ import com.gamershall.api.model.input.UsuarioInput;
 import com.gamershall.domain.model.Usuario;
 import com.gamershall.domain.repository.UsuarioRepository;
 import com.gamershall.domain.services.RegistroUsuarioService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,13 +38,13 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioModel adicionar(@RequestBody UsuarioInput usuarioInput){
+    public UsuarioModel adicionar(@Valid @RequestBody UsuarioInput usuarioInput){
         return usuarioMapper.toModel(registroUsuarioService.cadastrar(usuarioMapper.toEntity(usuarioInput)));
     }
 
     //preciso pensar em que atualizações um usuário pode fazer, até agora penso só no nome de usuário; talvez o email seja uma relevante também
     @PutMapping("/{usuarioId}")
-    public ResponseEntity<UsuarioModel> atualizar(@RequestBody UsuarioInput usuarioInput, @PathVariable Long usuarioId){
+    public ResponseEntity<UsuarioModel> atualizar(@Valid @RequestBody UsuarioInput usuarioInput, @PathVariable Long usuarioId){
         if(usuarioRepository.findById(usuarioId).isEmpty()){
             return ResponseEntity.notFound().build();
         }
